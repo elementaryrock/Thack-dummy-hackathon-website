@@ -1,0 +1,417 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import tech-style fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap');
+
+/* Base font settings */
+@layer base {
+  html {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  code, pre, .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    @apply bg-black text-white;
+  }
+}
+
+/* Existing styles */
+.clip-diagonal {
+  position: relative;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.clip-diagonal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 100%);
+  mix-blend-mode: multiply;
+}
+
+.clip-diagonal-reverse {
+  clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Matrix-style code rain animation */
+.code-rain-container {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  mix-blend-mode: overlay;
+}
+
+.code-rain-column {
+  position: absolute;
+  top: -20%;
+  animation: rain linear infinite;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: bold;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  font-size: 14px;
+  text-shadow: 0 0 5px currentColor;
+}
+
+.code-rain-character {
+  display: block;
+  color: #FFD700;
+  animation: glow ease-in-out infinite alternate;
+  transform: translateZ(0);
+}
+
+@keyframes rain {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes glow {
+  from {
+    opacity: 0.2;
+    text-shadow: 0 0 4px #FFD700;
+  }
+  to {
+    opacity: 0.8;
+    text-shadow: 0 0 8px #FFD700, 0 0 12px #FFD700;
+  }
+}
+
+/* Typing animation with single cursor */
+.typing-container {
+  position: relative;
+  display: inline-block;
+  max-width: fit-content;
+}
+
+.typing-container::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: 8px;
+  width: 2px;
+  height: 32px;
+  background-color: black;
+  animation: blink-caret .75s step-end infinite;
+}
+
+.typing-text {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  width: fit-content;
+  animation: typing 3.5s steps(40, end);
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { opacity: 0 }
+  50% { opacity: 1 }
+}
+
+/* Glitch text effect */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text:hover::before,
+.glitch-text:hover::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  text-shadow: 1px 0 yellow;
+  top: 0;
+  width: 100%;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch 2s linear alternate-reverse;
+}
+
+.glitch-text:hover::before {
+  text-shadow: -1px 0 red;
+  animation: glitch 3s linear infinite;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes glitch {
+  0% {
+    clip: rect(44px, 450px, 56px, 0);
+  }
+  20% {
+    clip: rect(63px, 450px, 64px, 0);
+  }
+  40% {
+    clip: rect(12px, 450px, 23px, 0);
+  }
+  60% {
+    clip: rect(48px, 450px, 67px, 0);
+  }
+  80% {
+    clip: rect(34px, 450px, 78px, 0);
+  }
+  100% {
+    clip: rect(89px, 450px, 98px, 0);
+  }
+}
+
+/* Navigation link hover animation */
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  padding-bottom: 2px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: #FFD700;
+  transition: width 0.3s ease-in-out;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Logo styles */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.3));
+  animation: logo-glow 3s ease-in-out infinite;
+}
+
+.logo-icons {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+}
+
+.logo-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-text::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 215, 0, 0.2),
+    transparent
+  );
+  animation: shine 3s ease-in-out infinite;
+}
+
+.logo-text .highlight {
+  color: #FFD700;
+}
+
+/* Icon animations */
+.logo-icons .primary-icon {
+  transition: transform 0.7s ease;
+}
+
+.logo-icons .secondary-icon {
+  position: absolute;
+  bottom: -0.25rem;
+  right: -0.25rem;
+  transition: transform 0.5s ease;
+}
+
+.logo-icons:hover .primary-icon {
+  transform: rotate(180deg);
+}
+
+.logo-icons:hover .secondary-icon {
+  transform: rotate(90deg);
+}
+
+/* Glow animations */
+@keyframes logo-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+  }
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-black;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-yellow-400 rounded-full hover:bg-yellow-500;
+}
+
+/* Hero section text effects */
+.cyber-text {
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  animation: textFlicker 3s linear infinite;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.cyber-glitch {
+  position: relative;
+  animation: glitch 5s linear infinite;
+  color: black;
+  display: inline-block;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 0.15em;
+}
+
+.cyber-glitch::before,
+.cyber-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffd700;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.cyber-glitch::before {
+  animation: glitchTop 3s linear infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  text-shadow: 2px 0 #000;
+  opacity: 0.7;
+}
+
+.cyber-glitch::after {
+  animation: glitchBottom 2.5s linear infinite;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  text-shadow: -2px 0 #000;
+  opacity: 0.7;
+}
+
+@keyframes textFlicker {
+  0% {
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  }
+  5% {
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  10% {
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  }
+  15% {
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  25% {
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  }
+  30% {
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@keyframes glitch {
+  2%, 64% {
+    transform: translate(2px, 0) skew(0deg);
+  }
+  4%, 60% {
+    transform: translate(-2px, 0) skew(0deg);
+  }
+  62% {
+    transform: translate(0, 0) skew(5deg);
+  }
+}
+
+@keyframes glitchTop {
+  2%, 64% {
+    transform: translate(2px, -2px);
+  }
+  4%, 60% {
+    transform: translate(-2px, 2px);
+  }
+  62% {
+    transform: translate(13px, -1px) skew(-13deg);
+  }
+}
+
+@keyframes glitchBottom {
+  2%, 64% {
+    transform: translate(-2px, 0);
+  }
+  4%, 60% {
+    transform: translate(-2px, 0);
+  }
+  62% {
+    transform: translate(-22px, 5px) skew(21deg);
+  }
+}
+
+/* Button styles */
+button, .button {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* Date and small text */
+.date-text, .small-text {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
