@@ -1,9 +1,13 @@
 {
-  "name": "vite-react-typescript-starter",
+  "homepage": "https://elementaryrock.github.io/Thack-dummy-hackathon-website
+",
+  "name": "Thack",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeploy": "vite build",
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
@@ -23,6 +27,7 @@
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
+    "gh-pages": "^6.2.0",
     "globals": "^15.9.0",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
